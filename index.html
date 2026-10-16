@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bài tập JS DOM</title>
+    <!-- Nhúng Tailwind CSS qua CDN (không cần cài đặt gì thêm) -->
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+</head>
+
+<!--
+    min-h-screen  : chiều cao tối thiểu = màn hình
+    bg-gradient-to-br from-.. to-.. : nền chuyển màu chéo
+    flex items-center justify-center : căn giữa nội dung
+-->
+<body class="min-h-screen bg-gradient-to-br from-indigo-50 via-white to-sky-100 flex items-center justify-center p-4 font-sans text-slate-700">
+
+    <main class="w-full max-w-md space-y-6">
+
+        <!-- ===================== Bài 1 ===================== -->
+        <!-- Card: nền trắng, bo góc, đổ bóng, viền mờ -->
+        <section class="bg-white rounded-2xl shadow-xl shadow-indigo-100 ring-1 ring-slate-200 p-8">
+
+            <!-- Phần tiêu đề -->
+            <div class="mb-6">
+                <p class="text-xs font-semibold uppercase tracking-widest text-indigo-500">Bài 1</p>
+                <h1 class="text-xl font-bold text-slate-800">Tính tiền lương nhân viên</h1>
+            </div>
+
+            <!-- Thông tin lương / ngày -->
+            <p class="text-sm text-slate-500 mb-4">
+                Lương 1 ngày:
+                <span class="font-semibold text-indigo-600">100.000 VNĐ</span>
+            </p>
+
+            <!-- Ô nhập -->
+            <label for="soNgayLam" class="block text-sm font-medium text-slate-700 mb-2">
+                Số ngày làm
+            </label>
+            <!--
+                focus:ring-4 : khi click vào ô thì hiện viền sáng bao quanh
+                outline-none : tắt viền mặc định của trình duyệt
+            -->
+            <input id="soNgayLam" type="number" min="0" placeholder="Vui lòng nhập số ngày làm"
+                class="w-full rounded-xl border border-slate-300 px-4 py-3 text-slate-800 placeholder:text-slate-400
+                       outline-none transition focus:border-indigo-500 focus:ring-4 focus:ring-indigo-100">
+
+            <!-- Nút bấm -->
+            <!--
+                hover:  : đổi màu khi rê chuột
+                active:scale-95 : bấm vào thì nút hơi thu nhỏ lại (hiệu ứng nhấn)
+            -->
+            <button id="btnTL"
+                class="mt-5 w-full rounded-xl bg-indigo-600 py-3 font-semibold text-white shadow-lg shadow-indigo-200
+                       transition hover:bg-indigo-700 active:scale-95 cursor-pointer">
+                Tính Lương
+            </button>
+
+            <!--
+                Ô kết quả
+                empty:hidden : khi chưa có nội dung (chưa bấm nút) thì ẩn đi,
+                               khi JS gán innerHTML thì tự hiện ra
+            -->
+            <p id="thongBao1"
+                class="empty:hidden mt-6 rounded-xl border border-emerald-200 bg-emerald-50 px-4 py-3
+                       text-center font-semibold text-emerald-700"></p>
+        </section>
+
+        <!-- ===================== Bài 2 ===================== -->
+        <section class="bg-white rounded-2xl shadow-xl shadow-indigo-100 ring-1 ring-slate-200 p-8">
+
+            <!-- Phần tiêu đề -->
+            <div class="mb-6">
+                <p class="text-xs font-semibold uppercase tracking-widest text-indigo-500">Bài 2</p>
+                <h1 class="text-xl font-bold text-slate-800">Tính giá trị trung bình 5 số</h1>
+            </div>
+
+            <!--
+                grid grid-cols-2 : chia các ô nhập thành lưới 2 cột
+                gap-4            : khoảng cách giữa các ô
+                col-span-2       : ô số 5 chiếm trọn 2 cột (vì 5 là số lẻ)
+            -->
+            <div class="grid grid-cols-2 gap-4">
+                <div>
+                    <label for="so1" class="block text-sm font-medium text-slate-700 mb-2">Số thứ 1</label>
+                    <input id="so1" type="number" placeholder="Nhập số 1"
+                        class="w-full rounded-xl border border-slate-300 px-4 py-3 text-slate-800 placeholder:text-slate-400
+                               outline-none transition focus:border-indigo-500 focus:ring-4 focus:ring-indigo-100">
+                </div>
+                <div>
+                    <label for="so2" class="block text-sm font-medium text-slate-700 mb-2">Số thứ 2</label>
+                    <input id="so2" type="number" placeholder="Nhập số 2"
+                        class="w-full rounded-xl border border-slate-300 px-4 py-3 text-slate-800 placeholder:text-slate-400
+                               outline-none transition focus:border-indigo-500 focus:ring-4 focus:ring-indigo-100">
+                </div>
+                <div>
+                    <label for="so3" class="block text-sm font-medium text-slate-700 mb-2">Số thứ 3</label>
+                    <input id="so3" type="number" placeholder="Nhập số 3"
+                        class="w-full rounded-xl border border-slate-300 px-4 py-3 text-slate-800 placeholder:text-slate-400
+                               outline-none transition focus:border-indigo-500 focus:ring-4 focus:ring-indigo-100">
+                </div>
+                <div>
+                    <label for="so4" class="block text-sm font-medium text-slate-700 mb-2">Số thứ 4</label>
+                    <input id="so4" type="number" placeholder="Nhập số 4"
+                        class="w-full rounded-xl border border-slate-300 px-4 py-3 text-slate-800 placeholder:text-slate-400
+                               outline-none transition focus:border-indigo-500 focus:ring-4 focus:ring-indigo-100">
+                </div>
+                <div class="col-span-2">
+                    <label for="so5" class="block text-sm font-medium text-slate-700 mb-2">Số thứ 5</label>
+                    <input id="so5" type="number" placeholder="Nhập số 5"
+                        class="w-full rounded-xl border border-slate-300 px-4 py-3 text-slate-800 placeholder:text-slate-400
+                               outline-none transition focus:border-indigo-500 focus:ring-4 focus:ring-indigo-100">
+                </div>
+            </div>
+
+            <!-- Nút bấm -->
+            <button id="btnTB"
+                class="mt-5 w-full rounded-xl bg-indigo-600 py-3 font-semibold text-white shadow-lg shadow-indigo-200
+                       transition hover:bg-indigo-700 active:scale-95 cursor-pointer">
+                Tính Trung Bình
+            </button>
+
+            <!-- Ô kết quả (tự ẩn khi chưa có nội dung) -->
+            <p id="thongBao2"
+                class="empty:hidden mt-6 rounded-xl border border-emerald-200 bg-emerald-50 px-4 py-3
+                       text-center font-semibold text-emerald-700"></p>
+        </section>
+
+        <!-- ===================== Bài 3 ===================== -->
+        <section class="bg-white rounded-2xl shadow-xl shadow-indigo-100 ring-1 ring-slate-200 p-8">
+
+            <!-- Phần tiêu đề -->
+            <div class="mb-6">
+                <p class="text-xs font-semibold uppercase tracking-widest text-indigo-500">Bài 3</p>
+                <h1 class="text-xl font-bold text-slate-800">Quy đổi tiền USD sang VND</h1>
+            </div>
+
+            <!-- Thông tin tỷ giá -->
+            <p class="text-sm text-slate-500 mb-4">
+                Tỷ giá:
+                <span class="font-semibold text-indigo-600">1 USD = 23.500 VND</span>
+            </p>
+
+            <!-- Ô nhập -->
+            <label for="soTienUSD" class="block text-sm font-medium text-slate-700 mb-2">
+                Số tiền USD
+            </label>
+            <input id="soTienUSD" type="number" min="0" placeholder="Vui lòng nhập số tiền USD"
+                class="w-full rounded-xl border border-slate-300 px-4 py-3 text-slate-800 placeholder:text-slate-400
+                       outline-none transition focus:border-indigo-500 focus:ring-4 focus:ring-indigo-100">
+
+            <!-- Nút bấm -->
+            <button id="btnQD"
+                class="mt-5 w-full rounded-xl bg-indigo-600 py-3 font-semibold text-white shadow-lg shadow-indigo-200
+                       transition hover:bg-indigo-700 active:scale-95 cursor-pointer">
+                Quy Đổi
+            </button>
+
+            <!-- Ô kết quả (tự ẩn khi chưa có nội dung) -->
+            <p id="thongBao3"
+                class="empty:hidden mt-6 rounded-xl border border-emerald-200 bg-emerald-50 px-4 py-3
+                       text-center font-semibold text-emerald-700"></p>
+        </section>
+
+        <!-- ===================== Bài 4 ===================== -->
+        <section class="bg-white rounded-2xl shadow-xl shadow-indigo-100 ring-1 ring-slate-200 p-8">
+
+            <!-- Phần tiêu đề -->
+            <div class="mb-6">
+                <p class="text-xs font-semibold uppercase tracking-widest text-indigo-500">Bài 4</p>
+                <h1 class="text-xl font-bold text-slate-800">Tính diện tích, chu vi hình chữ nhật</h1>
+            </div>
+
+            <!-- Công thức -->
+            <p class="text-sm text-slate-500 mb-4">
+                Diện tích = <span class="font-semibold text-indigo-600">dài × rộng</span>
+                <br>
+                Chu vi = <span class="font-semibold text-indigo-600">(dài + rộng) × 2</span>
+            </p>
+
+            <!-- 2 ô nhập nằm cạnh nhau -->
+            <div class="grid grid-cols-2 gap-4">
+                <div>
+                    <label for="chieuDai" class="block text-sm font-medium text-slate-700 mb-2">Chiều dài</label>
+                    <input id="chieuDai" type="number" min="0" placeholder="Nhập chiều dài"
+                        class="w-full rounded-xl border border-slate-300 px-4 py-3 text-slate-800 placeholder:text-slate-400
+                               outline-none transition focus:border-indigo-500 focus:ring-4 focus:ring-indigo-100">
+                </div>
+                <div>
+                    <label for="chieuRong" class="block text-sm font-medium text-slate-700 mb-2">Chiều rộng</label>
+                    <input id="chieuRong" type="number" min="0" placeholder="Nhập chiều rộng"
+                        class="w-full rounded-xl border border-slate-300 px-4 py-3 text-slate-800 placeholder:text-slate-400
+                               outline-none transition focus:border-indigo-500 focus:ring-4 focus:ring-indigo-100">
+                </div>
+            </div>
+
+            <!-- Nút bấm -->
+            <button id="btnHCN"
+                class="mt-5 w-full rounded-xl bg-indigo-600 py-3 font-semibold text-white shadow-lg shadow-indigo-200
+                       transition hover:bg-indigo-700 active:scale-95 cursor-pointer">
+                Tính Diện Tích, Chu Vi
+            </button>
+
+            <!-- Ô kết quả (tự ẩn khi chưa có nội dung) -->
+            <p id="thongBao4"
+                class="empty:hidden mt-6 rounded-xl border border-emerald-200 bg-emerald-50 px-4 py-3
+                       text-center font-semibold text-emerald-700"></p>
+        </section>
+
+        <!-- ===================== Bài 5 ===================== -->
+        <section class="bg-white rounded-2xl shadow-xl shadow-indigo-100 ring-1 ring-slate-200 p-8">
+
+            <!-- Phần tiêu đề -->
+            <div class="mb-6">
+                <p class="text-xs font-semibold uppercase tracking-widest text-indigo-500">Bài 5</p>
+                <h1 class="text-xl font-bold text-slate-800">Tính tổng 2 ký số</h1>
+            </div>
+
+            <!-- Ví dụ -->
+            <p class="text-sm text-slate-500 mb-4">
+                Ví dụ: <span class="font-semibold text-indigo-600">12</span> → Tổng là 1 + 2 =
+                <span class="font-semibold text-indigo-600">3</span>
+            </p>
+
+            <!-- Ô nhập -->
+            <label for="so2ChuSo" class="block text-sm font-medium text-slate-700 mb-2">
+                Số có 2 chữ số
+            </label>
+            <input id="so2ChuSo" type="number" min="10" max="99" placeholder="Vui lòng nhập số có 2 chữ số (VD: 12)"
+                class="w-full rounded-xl border border-slate-300 px-4 py-3 text-slate-800 placeholder:text-slate-400
+                       outline-none transition focus:border-indigo-500 focus:ring-4 focus:ring-indigo-100">
+
+            <!-- Nút bấm -->
+            <button id="btnTong"
+                class="mt-5 w-full rounded-xl bg-indigo-600 py-3 font-semibold text-white shadow-lg shadow-indigo-200
+                       transition hover:bg-indigo-700 active:scale-95 cursor-pointer">
+                Tính Tổng
+            </button>
+
+            <!-- Ô kết quả (tự ẩn khi chưa có nội dung) -->
+            <p id="thongBao5"
+                class="empty:hidden mt-6 rounded-xl border border-emerald-200 bg-emerald-50 px-4 py-3
+                       text-center font-semibold text-emerald-700"></p>
+        </section>
+
+    </main>
+
+    <script src="./main.js"></script>
+</body>
+</html>
